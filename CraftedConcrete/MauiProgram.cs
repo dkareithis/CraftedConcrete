@@ -31,12 +31,18 @@ namespace CraftedConcrete
             AddConcreteServices(IServiceCollection services)
         {
             services.AddSingleton<ConcreteService>();
-            services.AddSingletonWithShellRoute<HomePage,
-                HomeViewModel>(nameof(HomePage));
+
+            services.AddSingleton<HomePage>()
+                .AddSingleton<HomeViewModel>();
+
             services.AddTransientWithShellRoute<AllConcretePage,
                 AllConcreteViewModel>(nameof(AllConcretePage));
+            
             services.AddTransientWithShellRoute<DetailPage,
                 DetailsViewModel>(nameof(DetailPage));
+            
+            services.AddSingleton<CartViewModel>();
+            services.AddTransient<CartPage>();
             return services;
         }
     }

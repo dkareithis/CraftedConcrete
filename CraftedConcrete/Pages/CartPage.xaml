@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:CraftedConcrete.ViewModels"          
+             xmlns:models="clr-namespace:CraftedConcrete.Models"
+             x:Class="CraftedConcrete.Pages.CartPage"
+             Title="Cart"
+             x:DataType="vm:CartViewModel">
+    <Grid>
+        <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Concrete">
+                    <Border StrokeShape="RoundRectangle 15"
+                            StrokeThickness="0">
+                        <Grid ColumnDefinitions="25, Auto, 50, *, 80,25">
+                            <Label Grid.Column="0"
+                                   Text="{Binding CartQuantity}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="x"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                            <Image Grid.Column="2"
+                                   Source="{Binding Image}"
+                                   HeightRequest="25"
+                                   WidthRequest="25"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="3"
+                                                 VerticalOptions="Center"
+                                                 Spacing="2">
+                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding Price, StringFormat='KES{0:N2}'}"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="4"
+                                   Text="{Binding Amount, StringFormat='KES{0:N2}'}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+                            <Image Grid.Column="5"
+                                   Source="trash"
+                                   HeightRequest="25"
+                                   WidthRequest="25"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="Red"/>
+                                </Image.Behaviors>
+                            </Image>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

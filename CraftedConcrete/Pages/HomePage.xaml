@@ -138,9 +138,7 @@
                                 <TapGestureRecognizer Command="{Binding 
                                                     Source={x:RelativeSource AncestorType={x:Type 
                                                     vm:HomeViewModel}}, Path=GoToDetailsPageCommand}"
-                                                                      CommandParameter="{Binding .}">
-
-                                </TapGestureRecognizer>
+                                                                      CommandParameter="{Binding .}"/>
                             </Border.GestureRecognizers>
 
                         </Border>

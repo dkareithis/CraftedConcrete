@@ -10,3 +10,5 @@ global using CraftedConcrete.ViewModels;
 global using CraftedConcrete.Pages;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
+global using CommunityToolkit.Maui.Core;
+global using CommunityToolkit.Maui.Alerts;
