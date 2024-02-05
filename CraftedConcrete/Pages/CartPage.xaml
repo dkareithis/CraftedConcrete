@@ -124,7 +124,8 @@
                         VerticalOptions="Center"
                         HorizontalOptions="End"
                         Padding="25, 10"
-                        TextColor="Black"/>                
+                        TextColor="Black"
+                        Command="{Binding PlaceOrderCommand}"/>                
             </Grid>
         </Border>
     </Grid>
