@@ -6,52 +6,126 @@
              xmlns:models="clr-namespace:CraftedConcrete.Models"
              x:Class="CraftedConcrete.Pages.CartPage"
              Title="Cart"
-             x:DataType="vm:CartViewModel">
+             x:DataType="vm:CartViewModel"
+             BackgroundColor="AliceBlue">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Clear Cart"
+                     Command="{Binding ClearCartCommand}"/>
+    </ContentPage.ToolbarItems>
     <Grid>
-        <CollectionView ItemsSource="{Binding Items}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Concrete">
-                    <Border StrokeShape="RoundRectangle 15"
-                            StrokeThickness="0">
-                        <Grid ColumnDefinitions="25, Auto, 50, *, 80,25">
-                            <Label Grid.Column="0"
+        <ScrollView>
+            <VerticalStackLayout Padding="10">
+                <CollectionView ItemsSource="{Binding Items}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="15">
+                            <BoxView HeightRequest="100"
+                                     Color="Transparent"/>
+                            <Label Text="No building material in the cart"
+                                   FontSize="25"
+                                   TextColor="Black"
+                                   HorizontalTextAlignment="Center">
+                            </Label>
+                            <Button Text="Explore All Materials"
+                                    HorizontalOptions="Center"
+                                    BackgroundColor="AntiqueWhite"
+                                    Clicked="Button_Clicked"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Concrete">
+                            <Border StrokeShape="RoundRectangle 15"
+                            StrokeThickness="0"
+                            BackgroundColor="White"
+                            Padding="10">
+                                <Grid ColumnDefinitions="25, Auto, 50, *, 80,25">
+                                    <Label Grid.Column="0"
                                    Text="{Binding CartQuantity}"
                                    VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
-                            <Label Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                           FontSize="18"
+                                           FontAttributes="Bold"/>
+                                    <Label Grid.Column="1"
                                    Text="x"
                                    VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
-                            <Image Grid.Column="2"
+                                   HorizontalOptions="Center"
+                                           FontSize="18"
+                                           FontAttributes="Bold"/>
+                                    <Image Grid.Column="2"
                                    Source="{Binding Image}"
                                    HeightRequest="25"
                                    WidthRequest="25"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"/>
-                            <VerticalStackLayout Grid.Column="3"
+                                    <VerticalStackLayout Grid.Column="3"
                                                  VerticalOptions="Center"
                                                  Spacing="2">
-                                <Label Text="{Binding Name}"/>
-                                <Label Text="{Binding Price, StringFormat='KES{0:N2}'}"/>
-                            </VerticalStackLayout>
-                            <Label Grid.Column="4"
+                                        <Label Text="{Binding Name}"/>
+                                        <Label Text="{Binding Price, StringFormat='KES{0:N2}'}"
+                                               FontSize="12"/>
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="4"
                                    Text="{Binding Amount, StringFormat='KES{0:N2}'}"
                                    VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
-                            <Image Grid.Column="5"
+                                   HorizontalOptions="Center"
+                                           FontSize="15"
+                                           FontAttributes="Bold"/>
+                                    <Image Grid.Column="5"
                                    Source="trash"
                                    HeightRequest="25"
                                    WidthRequest="25"
                                    VerticalOptions="Center"
                                    HorizontalOptions="End">
-                                <Image.Behaviors>
-                                    <toolkit:IconTintColorBehavior TintColor="Red"/>
-                                </Image.Behaviors>
-                            </Image>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="Red"/>
+                                        </Image.Behaviors>
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CartViewModel}}, Path=RemoveCartItemCommand}"
+                                                                  CommandParameter="{Binding Name}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+        <Border StrokeShape="RoundRectangle 40"
+                BackgroundColor="AntiqueWhite"
+                StrokeThickness="0"
+                VerticalOptions="End"
+                Margin="5"
+                Padding="10">
+            <Grid ColumnDefinitions="*, *">
+                <Label Grid.Column="0"
+                       Padding="18, 0"
+                       VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Total: &#10;"
+                                  FontSize="18"/>
+                            <Span Text="{Binding TotalAmount, StringFormat='KES{0:N2}'}"
+                                  FontSize="20"
+                                  FontAttributes="Bold"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button Grid.Column="1"
+                        Text="Place Order"
+                        BackgroundColor="gold"
+                        CornerRadius="22"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Padding="25, 10"
+                        TextColor="Black"/>                
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

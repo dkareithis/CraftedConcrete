@@ -8,6 +8,9 @@ namespace CraftedConcrete.ViewModels
 {
     public partial class CartViewModel : ObservableObject
     {
+        public event EventHandler<Concrete> CartItemRemoved;
+        public event EventHandler<Concrete> CartItemUpdated;
+        public event EventHandler CartCleared;
         public ObservableCollection<Concrete> Items { get; set; } = new();
 
         [ObservableProperty]
@@ -31,13 +34,30 @@ namespace CraftedConcrete.ViewModels
         }
 
         [RelayCommand]
-        private void RemoveCartItem(string name) 
+        private async void RemoveCartItem(string name) 
         {
             var item = Items.FirstOrDefault(i => i.Name == name);
             if (item != null)
             {
                 Items.Remove(item);
                 RecalculateTotalAmount();
+
+                CartItemRemoved?.Invoke(this, item);
+
+                var snackbarOptions = new SnackbarOptions
+                {
+                    CornerRadius = 10,
+                    BackgroundColor = Colors.AntiqueWhite
+                };
+                var snackbar = Snackbar.Make($"'{item.Name}' removed from cart",
+                    () =>
+                    {
+                        Items.Add(item);
+                        RecalculateTotalAmount();
+                        CartItemUpdated?.Invoke(this, item);
+                    }, "Undo", TimeSpan.FromSeconds(5), snackbarOptions);
+
+                await snackbar.Show();
             }
         }
 
@@ -48,6 +68,7 @@ namespace CraftedConcrete.ViewModels
             {
                 Items.Clear();
                 RecalculateTotalAmount();
+                CartCleared?.Invoke(this, EventArgs.Empty);
                 await Toast.Make("Cart Cleared", ToastDuration.Short).Show();
             }
         }

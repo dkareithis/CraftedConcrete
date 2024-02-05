@@ -9,4 +9,9 @@ public partial class CartPage : ContentPage
 		InitializeComponent();
 		BindingContext = _cartViewModel;
 	}
+
+    async void Button_Clicked(object sender, EventArgs e)
+    {
+		await Shell.Current.GoToAsync(nameof(AllConcretePage));
+    }
 }

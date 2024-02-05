@@ -7,12 +7,31 @@ using System.Threading.Tasks;
 namespace CraftedConcrete.ViewModels
 {
     [QueryProperty(nameof(Concrete), nameof(Concrete))]
-    public partial class DetailsViewModel : ObservableObject
+    public partial class DetailsViewModel : ObservableObject, IDisposable
     {
         private readonly CartViewModel _cartViewModel;
         public DetailsViewModel(CartViewModel cartViewModel) 
         {
             _cartViewModel = cartViewModel;
+
+            _cartViewModel.CartCleared += OnCartCleared;
+            _cartViewModel.CartItemRemoved += OnCartItemRemoved;
+            _cartViewModel.CartItemUpdated += OnCartItemUpdated;
+        }
+
+        private void OnCartCleared(object? _, EventArgs e) => Concrete.CartQuantity = 0;
+        private void OnCartItemRemoved(object? _, Concrete c) =>
+            OnCartItemChanged(c, 0);
+
+        private void OnCartItemUpdated(object? _, Concrete c) =>
+            OnCartItemChanged(c, 0);
+
+        private void OnCartItemChanged(Concrete c, int quantity)
+        {
+            if(c.Name == Concrete.Name)
+            {
+                Concrete.CartQuantity = quantity;
+            }
         }
         [ObservableProperty]
         private Concrete _concrete;
@@ -43,6 +62,14 @@ namespace CraftedConcrete.ViewModels
                 await Toast.Make("Please select the quantity using the plus (+) button", ToastDuration.Short)
                     .Show();
             }
+        }
+
+        public void Dispose()
+        {
+            _cartViewModel.CartCleared -= OnCartCleared;
+            _cartViewModel.CartItemRemoved -= OnCartItemRemoved;
+            _cartViewModel.CartItemUpdated -= OnCartItemUpdated;
+
         }
     }
 }
