@@ -3,12 +3,11 @@ namespace CraftedConcrete.ViewModels
 {
     public partial class HomeViewModel : ObservableObject
     {
+
         private readonly ConcreteService _concreteService;
-        private readonly AuthService _authService;
-        public HomeViewModel(ConcreteService concreteService, AuthService authService) 
+        public HomeViewModel(ConcreteService concreteService) 
         {
             _concreteService = concreteService;
-            _authService = authService;
             Concretes = new(_concreteService.GetPopularConcretes());
         }
 
