@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftedConcrete.Pages.MainPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="Tan">
+             BackgroundColor="#eaf2f4">
 
     <Grid RowDefinitions="Auto, *, Auto"
           Padding="15, 25">
@@ -16,8 +16,8 @@
         
         <Image Grid.Row="1"
                Source="architect.png"
-               HeightRequest="250"
-               WidthRequest="250"
+               HeightRequest="150"
+               WidthRequest="150"
                VerticalOptions="Center"
                HorizontalOptions="Center"/>
 
@@ -31,7 +31,7 @@
                    LineHeight="1.2"/>
             <Border StrokeShape="RoundRectangle 25"
                     StrokeThickness="0"
-                    BackgroundColor="Goldenrod"
+                    BackgroundColor="#ffc40e"
                     HeightRequest="50">
 
                 <Border.GestureRecognizers>

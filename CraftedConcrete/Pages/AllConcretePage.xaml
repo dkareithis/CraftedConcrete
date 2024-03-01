@@ -19,9 +19,9 @@
         <SearchBar Grid.Row="0"
                    x:Name="searchBar"
                    Placeholder="Search for material..."
-                   PlaceholderColor="Goldenrod"
+                   PlaceholderColor="#000000"
                    CancelButtonColor="Red"
-                   TextColor="DarkGoldenrod"
+                   TextColor="#5b450b"
                    ios:SearchBar.SearchBarStyle="Minimal"
                    SearchCommand="{Binding SearchConcreteCommand}"
                    SearchCommandParameter="{Binding Source={x:Reference searchBar},
@@ -39,9 +39,9 @@
                         <DataTemplate x:DataType="models:Concrete">
                             <Border StrokeShape="RoundRectangle 10"
                                     StrokeThickness="0"
-                                    BackgroundColor="AliceBlue"
-                                    Padding="10"
-                                    Margin="5">
+                                    BackgroundColor="#eaf2f4"
+                                    Padding="15"
+                                    Margin="8">
                                 <Grid ColumnDefinitions="130, *"
                                       ColumnSpacing="10">
                                     <Image Grid.Column="0"
@@ -74,7 +74,7 @@
                                         </Grid>
                                         <Border StrokeShape="RoundRectangle 25"
                                                 StrokeThickness="0"
-                                                BackgroundColor="Gold"
+                                                BackgroundColor="#ffc40e"
                                                 HeightRequest="45"
                                                 HorizontalOptions="Center"
                                                 Padding="30, 5">

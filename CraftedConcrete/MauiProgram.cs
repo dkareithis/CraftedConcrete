@@ -24,6 +24,10 @@ namespace CraftedConcrete
     		builder.Logging.AddDebug();
 #endif
             AddConcreteServices(builder.Services);
+            builder.Services.AddTransient<AuthService>();
+            builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<ProfilePage>();
+
             return builder.Build();
         }
 

@@ -13,7 +13,7 @@
         <VerticalStackLayout Spacing="10">
             <Border StrokeShape="RoundRectangle 10"
                     StrokeThickness="0"
-                    BackgroundColor="Gold"
+                    BackgroundColor="#ffc40e"
                     VerticalOptions="Start"
                     Padding="15">
                 <Grid ColumnDefinitions="*, 150"
@@ -29,7 +29,7 @@
                     <Button Grid.Row="1"
                             Grid.Column="0"
                             Text="Get it Now"
-                            BackgroundColor="PaleGoldenrod"
+                            BackgroundColor="#eaf2f4"
                             TextColor="Black"
                             FontAttributes="Bold"
                             CornerRadius="22"
@@ -45,7 +45,7 @@
 
             <Border StrokeShape="RoundRectangle 22"
                     StrokeThickness="2"
-                    Stroke="Goldenrod">
+                    Stroke="#ffc40e">
                 <Label Text="Search here.."
                        TextColor="DarkGoldenrod"
                        FontSize="15"
@@ -85,7 +85,7 @@
                         <Border FlexLayout.Basis="50%"
                             StrokeShape="RoundRectangle 10"
                                 StrokeThickness="0"
-                                BackgroundColor="AliceBlue"
+                                BackgroundColor="#eaf2f4"
                                 Padding="10"
                                 Margin="2">
                             <Grid RowDefinitions="150, Auto, Auto, Auto"
@@ -114,14 +114,14 @@
                                                HeightRequest="15"
                                                WidthRequest="15">
                                             <Image.Behaviors>
-                                                <toolkit:IconTintColorBehavior TintColor="Gold"/>
+                                                <toolkit:IconTintColorBehavior TintColor="#ffc40e"/>
                                             </Image.Behaviors>
                                         </Image>
                                     </HorizontalStackLayout>
                                 </Grid>
                                 <Button Grid.Row="3"
                                         Text="View More"
-                                        BackgroundColor="Gold"
+                                        BackgroundColor="#ffc40e"
                                         TextColor="Black"
                                         CornerRadius="22"
                                         FontAttributes="Bold"
