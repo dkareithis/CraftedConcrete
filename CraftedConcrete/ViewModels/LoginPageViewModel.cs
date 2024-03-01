@@ -1,4 +1,7 @@
 ﻿
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 namespace CraftedConcrete.ViewModels
 {
     public partial class LoginPageViewModel : BaseViewModel
@@ -9,9 +12,22 @@ namespace CraftedConcrete.ViewModels
         [ObservableProperty]
         private string _password;
 
+        readonly ILoginRepository loginRepository = new AuthService();
+
         [RelayCommand]
         public async void Login()
         {
+            if(!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password)) 
+            {
+                UserInfo userInfo = await loginRepository.Login(UserName, Password);
+
+                if(Preferences.ContainsKey(nameof(App.UserInfo)))
+                {
+                    Preferences.Remove(nameof(App.UserInfo));
+                }
+
+                string userDetails=JsonConvert.SerializeObject(userInfo);
+            }
 
         }
     }
