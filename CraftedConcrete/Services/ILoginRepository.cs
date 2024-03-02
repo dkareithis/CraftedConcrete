@@ -1,4 +1,4 @@
-﻿using CraftedConcrete.Models
+﻿using CraftedConcrete.Models;
 
 namespace CraftedConcrete.Services
 {

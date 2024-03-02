@@ -27,6 +27,10 @@ namespace CraftedConcrete.ViewModels
                 }
 
                 string userDetails=JsonConvert.SerializeObject(userInfo);
+                Preferences.Set(nameof(App.UserInfo),userDetails);
+                App.UserInfo = userInfo;
+
+                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
             }
 
         }

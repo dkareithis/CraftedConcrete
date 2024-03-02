@@ -25,7 +25,10 @@ namespace CraftedConcrete
 #endif
             AddConcreteServices(builder.Services);
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<LoginPageViewModel>();
             builder.Services.AddTransient<ProfilePage>();
+
 
             return builder.Build();
         }

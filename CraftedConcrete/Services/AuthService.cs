@@ -1,11 +1,11 @@
-﻿
+﻿using CraftedConcrete.Models;
 using System.Net.Http.Json;
 
 namespace CraftedConcrete.Services
 {
     public class AuthService : ILoginRepository
     {
-        public async Task<bool> Login(string username, string password)
+        public async Task<UserInfo> Login(string username, string password)
         {
             try
             {
@@ -13,12 +13,12 @@ namespace CraftedConcrete.Services
                  {
                     var userInfo = new UserInfo();
                     var client = new HttpClient();
-                    string url = "https://192.168.1.22:5555/api/UserInfoes/LoginUser/"+username+"/"+password;
+                    string url = "https://192.168.16.119:46795/api/UserInfoes/LoginUser/"+username+"/"+password;
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if (response.IsSuccessStatusCode)
                     {
-                        UserInfo = await response.Content.ReadFromJsonAsync<UserInfo>();
+                        userInfo = await response.Content.ReadFromJsonAsync<UserInfo>();
                         return await Task.FromResult(userInfo);
                     }
                     else
