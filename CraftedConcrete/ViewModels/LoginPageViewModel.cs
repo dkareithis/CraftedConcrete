@@ -1,7 +1,4 @@
 ﻿
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-
 namespace CraftedConcrete.ViewModels
 {
     public partial class LoginPageViewModel : BaseViewModel

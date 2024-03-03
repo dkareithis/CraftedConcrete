@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CraftedConcrete.Pages.ProfilePage"
              Title="ProfilePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Spacing="10" Grid.Row="0" Grid.Column="0">
+    <Label x:Name="lblUserName" FontSize="20" FontAttributes="Bold" TextColor="#5b450b" />
+    <Label x:Name="lblUserEmail" FontSize="16" TextColor="#5b450b" />
+    <Button Text="Sign Out" Command="{Binding SignOutCommand}" BackgroundColor="#eaf2f4"/>
     </VerticalStackLayout>
 </ContentPage>

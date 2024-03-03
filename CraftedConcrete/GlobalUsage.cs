@@ -3,6 +3,8 @@ global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
 global using System.Linq;
 global using System.Text;
+global using Newtonsoft.Json;
+global using System.Net.Http.Json;
 global using System.Threading.Tasks;
 global using CraftedConcrete.Services;
 global using CraftedConcrete.Models;

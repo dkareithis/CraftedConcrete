@@ -1,5 +1,4 @@
-﻿using CraftedConcrete.Models;
-
+﻿
 namespace CraftedConcrete
 {
     public partial class App : Application

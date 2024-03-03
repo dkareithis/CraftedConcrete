@@ -1,5 +1,4 @@
-﻿using CraftedConcrete.Models;
-
+﻿
 namespace CraftedConcrete.Services
 {
     public interface ILoginRepository

@@ -5,33 +5,48 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:CraftedConcrete.Pages"
+    xmlns:models="clr-namespace:CraftedConcrete.Models"
     Shell.FlyoutBehavior="Disabled"
     Shell.BackgroundColor="#ffd656">
     <Shell.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="#ffd656"
                                    StatusBarStyle="DarkContent"/>
     </Shell.Behaviors>
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate pages:LoginPage}"
-        Route="LoginPage"/>
-
+    
     <ShellContent
         Title=""
         ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
 
-        <FlyoutItem Route="HomePage" FlyoutDisplayOptions="AsMultipleItems">
     <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        Route="LoginPage"/>
+        
+    <FlyoutItem Route="HomePage" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
         Title="Home"
+        Icon="{x:Static models:Icons.Dashboard}"
         ContentTemplate="{DataTemplate pages:HomePage}"
         Route="HomePage"/>
-
-    <ShellContent
+        
+        <ShellContent
+        Title="Shop"
+        Icon="{x:Static models:Icons.Shop}"
+        ContentTemplate="{DataTemplate pages:AllConcretePage}"
+        Route="AllConcretePage"/>
+        
+        <ShellContent
+        Title="Cart"
+        Icon="{x:Static models:Icons.Cart}"
+        ContentTemplate="{DataTemplate pages:CartPage}"
+        Route="CartPage"/>
+        
+        <ShellContent
         Title="Profile"
+        Icon="{x:Static models:Icons.Account}"
         ContentTemplate="{DataTemplate pages:ProfilePage}"
         Route="ProfilePage"/>
-        </FlyoutItem>
+    </FlyoutItem>
 
 </Shell>

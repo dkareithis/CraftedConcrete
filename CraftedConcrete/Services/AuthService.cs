@@ -1,6 +1,4 @@
-﻿using CraftedConcrete.Models;
-using System.Net.Http.Json;
-
+﻿
 namespace CraftedConcrete.Services
 {
     public class AuthService : ILoginRepository
@@ -13,7 +11,7 @@ namespace CraftedConcrete.Services
                  {
                     var userInfo = new UserInfo();
                     var client = new HttpClient();
-                    string url = "https://192.168.16.119:46795/api/UserInfoes/LoginUser/"+username+"/"+password;
+                    string url = "https://fakestoreapi.com/auth/login/"+username+"/"+password;
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if (response.IsSuccessStatusCode)
