@@ -30,6 +30,6 @@
                 Padding="50, 10"
                 Scale="0"
                 Opacity="0"
-                Clicked="homeBtn_Clicked"/>
+                Clicked="HomeBtn_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

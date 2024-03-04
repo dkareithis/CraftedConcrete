@@ -25,7 +25,7 @@ public partial class CheckoutPage : ContentPage
         await homeBtn.ScaleTo(1);
     }
 
-    async void homeBtn_Clicked(object sender, EventArgs e)
+    async void HomeBtn_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(HomePage)}", animate: true);
     }
