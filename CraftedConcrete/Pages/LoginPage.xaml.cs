@@ -2,7 +2,7 @@ namespace CraftedConcrete.Pages;
 
 public partial class LoginPage : ContentPage
 {
-    private LoginPageViewModel _loginPageViewModel;
+    private readonly LoginPageViewModel _loginPageViewModel;
     public LoginPage(LoginPageViewModel loginPageViewModel)
 	{
 		InitializeComponent();

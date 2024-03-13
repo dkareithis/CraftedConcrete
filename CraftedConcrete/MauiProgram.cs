@@ -19,9 +19,29 @@ namespace CraftedConcrete
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 })
                 .UseMauiCommunityToolkit();
+            
+            builder.Services.AddSingleton<IPlatformHttpMessageHandler>(sp =>
+            { 
+#if ANDROID
+            return new AndroidHttpMessageHandler();
+#else
+            return null;
+#endif
+        });
+
+            builder.Services.AddHttpClient("custom-httpclient", httpClient =>
+            {
+//                var baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7136" : "https://localhost:7136";
+                var baseAddress = "https://api.escuelajs.co/api/v1";
+                httpClient.BaseAddress = new Uri(baseAddress);
+            }).ConfigureHttpMessageHandlerBuilder(configBuilder =>
+            {
+                var platformMessageHandler = configBuilder.Services.GetRequiredService<IPlatformHttpMessageHandler>();
+                configBuilder.PrimaryHandler = platformMessageHandler.GetHttpMessageHandler();
+            });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             AddConcreteServices(builder.Services);
             builder.Services.AddTransient<HomePage>();

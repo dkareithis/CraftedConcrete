@@ -4,39 +4,49 @@ using Serilog.Sinks.SystemConsole;
 
 namespace CraftedConcrete.Services
 {
-    public class AuthService : ILoginRepository
+    public class AuthService
     {
-        public async Task<UserInfo> Login(string username, string password)
+        private readonly IHttpClientFactory httpClientFactory;
+
+        public AuthService(IHttpClientFactory httpClientFactory)
+        {
+            this.httpClientFactory = httpClientFactory;
+        }
+
+        public async Task Register(UserInfo model)
+        {
+            var httpClient = httpClientFactory.CreateClient("custom-httpclient");
+            var result = await httpClient.PostAsJsonAsync("/register", model);
+
+            if (result.IsSuccessStatusCode)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                await Toast.Make("Successfully Registered. Login to continue shopping", ToastDuration.Short)
+                    .Show();
+            }
+            await Toast.Make(result.ReasonPhrase, ToastDuration.Short)
+                .Show();
+
+        }
+        public async Task Login(UserInfo model)
         {
             try
             {
                 if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
                  {
-                    var userInfo = new List<UserInfo>();
-                    var client = new HttpClient();
-                    string url = "https://fakestoreapi.com/auth/login/"+username+"/"+password;
-                    client.BaseAddress = new Uri(url);
-                    HttpResponseMessage response = await client.GetAsync("");
-                    Log.Logger = new LoggerConfiguration()
-                        .WriteTo.Console()
-                        .CreateLogger();
-
-                    Log.Information(response.ToString());
-                    Log.CloseAndFlush();
-                    if (response.IsSuccessStatusCode)
+                    var httpClient = httpClientFactory.CreateClient("custom-httpclient");
+                    var result = await httpClient.PostAsJsonAsync("/auth/login", model);
+                    var response = await result.Content.ReadFromJsonAsync<UserInfo>();
+                    if (response is not null)
                     {
-                        string content = response.Content.ReadAsStringAsync().Result;
-                        userInfo = JsonConvert.DeserializeObject<List<UserInfo>>(content);
-                        return await Task.FromResult(userInfo.FirstOrDefault());
+                        var serializeResponse = JsonSerializer.Serialize(new UserInfo()
+                            {
+                                AccessToken = response.AccessToken,
+                                RefreshToken = response.RefreshToken,
+                                UserName = model.Email
+                            });
+                        await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
                     }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else 
-                {
-                    return null;
                 }
             }
             catch (Exception ex)

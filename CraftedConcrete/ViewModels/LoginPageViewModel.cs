@@ -4,42 +4,56 @@ namespace CraftedConcrete.ViewModels
 {
     public partial class LoginPageViewModel : BaseViewModel
     {
-        [ObservableProperty]
-        private string? _username;
 
-        [ObservableProperty]
-        private string? _password;
+//        readonly ILoginRepository _loginRepository = new AuthService();
 
-        readonly ILoginRepository _loginRepository = new AuthService();
+        private readonly AuthService authService;
+
+        public LoginPageViewModel(AuthService authService)
+        {
+            this.authService = authService;
+            UserInfo = new();
+            IsAuthenticated = false;
+            GetUserNameFromSecureStorage();
+        }
+
+        [RelayCommand]
+        private async Task Register()
+        {
+            await authService.Register(UserInfo);
+        }
 
         [RelayCommand]
         public async Task Login()
         {
-            if(!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password)) 
+            await authService.Login(UserInfo);
+            GetUserNameFromSecureStorage();
+        }
+
+        [RelayCommand]
+        public async Task Logout()
+        {
+            SecureStorage.Default.Remove("Authentication");
+            IsAuthenticated = false;
+            UserName = "Guest";
+            await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}");
+        }
+        private async void GetUserNameFromSecureStorage()
+        {
+            if (!string.IsNullOrEmpty(UserName) && userName! != "Guest")
             {
-                UserInfo userInfo = await _loginRepository.Login(Username, Password);
-
-                if(Preferences.ContainsKey(nameof(App.UserInfo)))
-                {
-                    Preferences.Remove(nameof(App.UserInfo));
-                }
-                    string userDetails = JsonConvert.SerializeObject(userInfo);
-                    Preferences.Set(nameof(App.UserInfo), userDetails);
-                    App.UserInfo = userInfo;
-//                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-
-                if(userInfo != null) 
-                {
-                    await Toast.Make("Username and Password is incorrect.", ToastDuration.Short)
-                        .Show();
-                }
+                IsAuthenticated = true;
+                return;
             }
-            else
+            var serializedLoginresponseInStorage = await SecureStorage.Default.GetAsync("Authentication");
+            if (serializedLoginresponseInStorage != null)
             {
-                await Toast.Make("Username and Password cannot be blank.", ToastDuration.Short)
-                    .Show();
+                UserName = JsonSerializer.Deserialize<UserInfo>(serializedLoginresponseInStorage)!.UserName!;
+                IsAuthenticated = true;
+                return;
             }
-
+            UserName = "Guest";
+            IsAuthenticated = false;
         }
     }
 }

@@ -45,7 +45,7 @@
                         <Frame BackgroundColor="AntiqueWhite" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="user" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Username}" Placeholder="Username" TextColor="Black" FontAttributes="Bold"
+                        <Entry Text="{Binding UserName}" Placeholder="Username" TextColor="Black" FontAttributes="Bold"
                    VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                     </StackLayout>
 
@@ -53,7 +53,7 @@
                         <Frame BackgroundColor="AntiqueWhite" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
                             <Image Source="lock_alt" Aspect="AspectFill" Margin="0"/>
                         </Frame>
-                        <Entry Text="{Binding Password}" Placeholder="Password" TextColor="Black" FontAttributes="Bold"
+                        <Entry Text="{Binding UserInfo.Password}" Placeholder="Password" TextColor="Black" FontAttributes="Bold"
                   VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                     </StackLayout>
 
