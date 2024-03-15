@@ -7,12 +7,12 @@ namespace CraftedConcrete.ViewModels
 
 //        readonly ILoginRepository _loginRepository = new AuthService();
 
-        private readonly AuthService authService;
+        private readonly AuthService _authService;
 
         public LoginPageViewModel(AuthService authService)
         {
-            this.authService = authService;
-            UserInfo = new();
+            _authService = authService;
+            LoginModel = new();
             IsAuthenticated = false;
             GetUserNameFromSecureStorage();
         }
@@ -20,13 +20,13 @@ namespace CraftedConcrete.ViewModels
         [RelayCommand]
         private async Task Register()
         {
-            await authService.Register(UserInfo);
+            await _authService.Register(UserInfo);
         }
 
         [RelayCommand]
         public async Task Login()
         {
-            await authService.Login(UserInfo);
+            await _authService.Login(LoginModel);
             GetUserNameFromSecureStorage();
         }
 

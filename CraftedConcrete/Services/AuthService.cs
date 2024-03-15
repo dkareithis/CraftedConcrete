@@ -1,7 +1,4 @@
-﻿using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.SystemConsole;
-
+﻿
 namespace CraftedConcrete.Services
 {
     public class AuthService
@@ -24,18 +21,18 @@ namespace CraftedConcrete.Services
                 await Toast.Make("Successfully Registered. Login to continue shopping", ToastDuration.Short)
                     .Show();
             }
-            await Toast.Make(result.ReasonPhrase, ToastDuration.Short)
+            await Toast.Make($"'{result.ReasonPhrase}'", ToastDuration.Short)
                 .Show();
 
         }
-        public async Task Login(UserInfo model)
+        public async Task Login(LoginModel model)
         {
             try
             {
                 if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
                  {
                     var httpClient = httpClientFactory.CreateClient("custom-httpclient");
-                    var result = await httpClient.PostAsJsonAsync("/auth/login", model);
+                    var result = await httpClient.PostAsJsonAsync("/api/v1/auth/login", model);
                     var response = await result.Content.ReadFromJsonAsync<UserInfo>();
                     if (response is not null)
                     {

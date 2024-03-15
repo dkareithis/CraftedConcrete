@@ -31,19 +31,21 @@ namespace CraftedConcrete
 
             builder.Services.AddHttpClient("custom-httpclient", httpClient =>
             {
-//                var baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7136" : "https://localhost:7136";
-                var baseAddress = "https://api.escuelajs.co/api/v1";
+                //                var baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7136" : "https://localhost:7136";
+                var baseAddress = "https://api.escuelajs.co";
                 httpClient.BaseAddress = new Uri(baseAddress);
-            }).ConfigureHttpMessageHandlerBuilder(configBuilder =>
+            });
+                /*.ConfigureHttpMessageHandlerBuilder(configBuilder =>
             {
                 var platformMessageHandler = configBuilder.Services.GetRequiredService<IPlatformHttpMessageHandler>();
                 configBuilder.PrimaryHandler = platformMessageHandler.GetHttpMessageHandler();
-            });
+            });*/
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
             AddConcreteServices(builder.Services);
+            builder.Services.AddSingleton<AuthService, AuthService>();
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<LoginPageViewModel>();

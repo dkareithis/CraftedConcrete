@@ -4,10 +4,13 @@ namespace CraftedConcrete.ViewModels
     public partial class BaseViewModel : ObservableObject
     {
         [ObservableProperty]
-        private UserInfo userInfo;
+        private LoginModel loginModel;
         [ObservableProperty]
-        public bool isAuthenticated;
+        private UserInfo userInfo;
+
         [ObservableProperty]
         public string userName;
+        [ObservableProperty]
+        public bool isAuthenticated;
     }
 }
