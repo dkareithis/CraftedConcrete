@@ -28,6 +28,7 @@ namespace CraftedConcrete.ViewModels
         {
             await _authService.Login(LoginModel);
             GetUserNameFromSecureStorage();
+            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }
 
         [RelayCommand]

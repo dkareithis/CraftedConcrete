@@ -7,7 +7,7 @@
              Title="ProfilePage">
     <VerticalStackLayout Spacing="10" Grid.Row="0" Grid.Column="0">
         <HorizontalStackLayout Spacing="10">
-        <Button Text="Sign Out" IsVisible="{Binding IsAuthenticated}" Command="{Binding LogoutCommand}" BackgroundColor="#eaf2f4"/>
+        <Button Text="Sign Out" IsVisible="{Binding IsAuthenticated}" Command="{Binding LogoutCommand}" BackgroundColor="Red"/>
         <Label TextColor="#5b450b" FontAttributes="Bold" Text="{Binding UserName, StringFormat='Hello {0}'}" Margin="0,0,0,0" HorizontalOptions="Center"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>

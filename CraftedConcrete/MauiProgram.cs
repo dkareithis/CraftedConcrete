@@ -34,6 +34,9 @@ namespace CraftedConcrete
                 //                var baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7136" : "https://localhost:7136";
                 var baseAddress = "https://api.escuelajs.co";
                 httpClient.BaseAddress = new Uri(baseAddress);
+                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+
             });
                 /*.ConfigureHttpMessageHandlerBuilder(configBuilder =>
             {
